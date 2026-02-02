@@ -23,13 +23,23 @@ jobs:
           python -m pip install -r requirements.txt
           python -m pip install pyinstaller
 
+      - name: Download FFmpeg
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path bin | Out-Null
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+          $zip = "ffmpeg.zip"
+          Invoke-WebRequest -Uri $url -OutFile $zip
+          Expand-Archive -Path $zip -DestinationPath ffmpeg_tmp -Force
+          $exe = Get-ChildItem -Recurse -Path ffmpeg_tmp -Filter ffmpeg.exe | Select-Object -First 1
+          Copy-Item $exe.FullName -Destination bin\ffmpeg.exe -Force
+
       - name: Build EXE
         shell: pwsh
         run: |
           if (Test-Path build) { Remove-Item build -Recurse -Force }
           if (Test-Path dist) { Remove-Item dist -Recurse -Force }
-          $addData = @()
-          if (Test-Path "bin/ffmpeg.exe") { $addData += @('--add-data', 'bin/ffmpeg.exe;bin') }
+          $addData = @('--add-data', 'bin/ffmpeg.exe;bin')
           if (Test-Path "settings.json") { $addData += @('--add-data', 'settings.json;.') }
           python -m PyInstaller --noconfirm --clean --windowed --name "4K-Video-Converter" @addData main.py
 
