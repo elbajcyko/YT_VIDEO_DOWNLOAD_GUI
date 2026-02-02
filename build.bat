@@ -1,6 +1,6 @@
 @echo off
 setlocal
-set APP_NAME=4K-Video-Converter
+set APP_NAME=YT_VIDEO_DOWNLOAD_GUI
 set MAIN=main.py
 
 REM Ensure venv Python is used if available

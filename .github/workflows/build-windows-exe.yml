@@ -41,11 +41,9 @@ jobs:
           if (Test-Path dist) { Remove-Item dist -Recurse -Force }
           $addData = @('--add-data', 'bin/ffmpeg.exe;bin')
           if (Test-Path "settings.json") { $addData += @('--add-data', 'settings.json;.') }
-          python -m PyInstaller --noconfirm --clean --windowed --name "4K-Video-Converter" @addData main.py
-          $src = "dist/4K-Video-Converter"
+          python -m PyInstaller --noconfirm --clean --windowed --name "YT_VIDEO_DOWNLOAD_GUI" @addData main.py
           $dst = "dist/YT_VIDEO_DOWNLOAD_GUI"
           if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
-          Move-Item $src $dst
           New-Item -ItemType Directory -Force -Path "$dst/videos" | Out-Null
 
       - name: Upload artifact
