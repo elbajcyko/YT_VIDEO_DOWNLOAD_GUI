@@ -35,3 +35,4 @@ Jezeli dana jakosc nie wystepuje w MP4, nie pojawi sie na liscie.
 ## Build EXE
 Windows EXE mozesz zbudowac lokalnie przez `build.bat` (skrypt sam pobierze FFmpeg, jesli go nie ma).
 GitHub Actions automatycznie pobierze FFmpeg i zbuduje artefakt EXE.
+Plik wynikowy ma nazwe `YT_VIDEO_DOWNLOAD_GUI.exe`.
