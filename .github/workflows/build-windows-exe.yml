@@ -43,8 +43,19 @@ jobs:
           if (Test-Path "settings.json") { $addData += @('--add-data', 'settings.json;.') }
           python -m PyInstaller --noconfirm --clean --windowed --name "4K-Video-Converter" @addData main.py
 
+      - name: Package ZIP
+        shell: pwsh
+        run: |
+          $src = "dist/4K-Video-Converter"
+          $dst = "dist/YT_VIDEO_DOWNLOAD_GUI"
+          if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
+          Move-Item $src $dst
+          New-Item -ItemType Directory -Force -Path "$dst/videos" | Out-Null
+          if (Test-Path "dist/YT_VIDEO_DOWNLOAD_GUI.zip") { Remove-Item "dist/YT_VIDEO_DOWNLOAD_GUI.zip" -Force }
+          Compress-Archive -Path $dst -DestinationPath "dist/YT_VIDEO_DOWNLOAD_GUI.zip"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 4K-Video-Converter-windows
-          path: dist/4K-Video-Converter/
+          name: YT_VIDEO_DOWNLOAD_GUI-windows
+          path: dist/YT_VIDEO_DOWNLOAD_GUI.zip
