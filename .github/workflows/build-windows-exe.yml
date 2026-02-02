@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: YT_VIDEO_DOWNLOAD_GUI-windows
-          path: dist/YT_VIDEO_DOWNLOAD_GUI/
+          path: dist
