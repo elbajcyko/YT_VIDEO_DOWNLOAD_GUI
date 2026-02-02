@@ -1,9 +1,17 @@
 import json
 import os
+import sys
 from dataclasses import dataclass
 
 
-BASE_DIR = os.path.dirname(__file__)
+def _app_dir() -> str:
+    # When frozen (PyInstaller), __file__ points into _internal; use the exe folder instead.
+    if getattr(sys, "frozen", False):
+        return os.path.dirname(sys.executable)
+    return os.path.dirname(__file__)
+
+
+BASE_DIR = _app_dir()
 SETTINGS_FILE = os.path.join(BASE_DIR, "settings.json")
 DEFAULT_OUTPUT = os.path.join(BASE_DIR, "videos")
 
