@@ -43,7 +43,6 @@ jobs:
           if (Test-Path "settings.json") { $addData += @('--add-data', 'settings.json;.') }
           python -m PyInstaller --noconfirm --clean --windowed --name "YT_VIDEO_DOWNLOAD_GUI" @addData main.py
           $dst = "dist/YT_VIDEO_DOWNLOAD_GUI"
-          if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
           New-Item -ItemType Directory -Force -Path "$dst/videos" | Out-Null
 
       - name: Upload artifact
