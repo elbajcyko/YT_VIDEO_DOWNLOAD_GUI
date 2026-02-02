@@ -18,6 +18,19 @@ REM Clean previous build
 if exist build rmdir /s /q build
 if exist dist rmdir /s /q dist
 
+REM Ensure local FFmpeg (download if missing)
+if not exist bin\ffmpeg.exe (
+  echo FFmpeg not found. Downloading...
+  if not exist bin mkdir bin
+  powershell -NoProfile -Command ^
+    "$url='https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip';" ^
+    "$zip='ffmpeg.zip';" ^
+    "Invoke-WebRequest -Uri $url -OutFile $zip;" ^
+    "Expand-Archive -Path $zip -DestinationPath ffmpeg_tmp -Force;" ^
+    "$exe=Get-ChildItem -Recurse -Path ffmpeg_tmp -Filter ffmpeg.exe | Select-Object -First 1;" ^
+    "Copy-Item $exe.FullName -Destination 'bin\\ffmpeg.exe' -Force;"
+)
+
 REM Build one-file exe, include ffmpeg.exe and settings.json if present
 set ADDDATA=
 if exist bin\ffmpeg.exe set ADDDATA=--add-data "bin\ffmpeg.exe;bin"

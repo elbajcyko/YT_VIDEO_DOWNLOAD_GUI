@@ -33,5 +33,5 @@ Aplikacja pobiera tylko MP4 (wideo MP4 + audio M4A scalane przez FFmpeg).
 Jezeli dana jakosc nie wystepuje w MP4, nie pojawi sie na liscie.
 
 ## Build EXE
-Windows EXE mozesz zbudowac lokalnie przez `build.bat`.
+Windows EXE mozesz zbudowac lokalnie przez `build.bat` (skrypt sam pobierze FFmpeg, jesli go nie ma).
 GitHub Actions automatycznie pobierze FFmpeg i zbuduje artefakt EXE.
